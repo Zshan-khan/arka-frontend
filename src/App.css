@@ -1,38 +1,141 @@
-.App {
+body {
+  background: black;
+
+  color: white;
+
+  margin: 0;
+
+  font-family: Arial;
+}
+
+/* Navbar */
+
+.navbar {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 20px 50px;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  position: fixed;
+
+  width: 100%;
+
+  z-index: 1000;
+}
+
+.logo {
+  color: gold;
+
+  font-size: 28px;
+
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: white;
+
+  margin-left: 30px;
+
+  text-decoration: none;
+}
+
+/* Hero */
+
+.hero {
+  height: 100vh;
+
+  background-image: url("https://images.unsplash.com/photo-1549921296-3a6b0eae3c18");
+
+  background-size: cover;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hero h1 {
+  font-size: 60px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.hero span {
+  color: gold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.hero-btn {
+  background: gold;
+
+  color: black;
+
+  padding: 15px 30px;
+
+  margin-top: 20px;
+
+  display: inline-block;
+
+  text-decoration: none;
+
+  font-weight: bold;
+}
+
+/* Sections */
+
+.section {
+  padding: 80px 50px;
+}
+
+.section-title {
+  color: gold;
+
+  text-align: center;
+
+  margin-bottom: 40px;
+}
+
+/* Car Card */
+
+.car-card {
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 215, 0, 0.3);
+
+  padding: 20px;
+
+  margin: 20px;
+
+  border-radius: 10px;
+
+  width: 300px;
+}
+
+.car-card img {
+  width: 100%;
+
+  border-radius: 10px;
+}
+
+/* WhatsApp */
+
+.whatsapp {
+  position: fixed;
+
+  bottom: 30px;
+
+  right: 30px;
+
+  background: #25d366;
+
   color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
+  padding: 15px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  border-radius: 50%;
+
+  font-size: 24px;
 }
