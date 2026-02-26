@@ -20,7 +20,7 @@ function AdminLeads() {
     }
 
     fetchLeads(token);
-  }, []);
+  }, [navigate]);
 
   const fetchLeads = (token) => {
     API.get("/contact", {

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AdminLayout from "./AdminLayout";
 import API from "../../services/api";
 import { useParams, useNavigate } from "react-router-dom";
 
 function EditCar() {
   const { id } = useParams();
-
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -21,28 +20,44 @@ function EditCar() {
 
   const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    fetchCar();
-  }, []);
-
-  const fetchCar = async () => {
+  // Wrap fetchCar in useCallback
+  const fetchCar = useCallback(async () => {
     try {
       const res = await API.get("/cars");
-
-      const car = res.data.find((c) => c.id == id);
-
-      setForm(car);
-    } catch {
+      const car = res.data.find((c) => String(c.id) === String(id));
+      if (car) {
+        setForm(car);
+      } else {
+        alert("Car not found");
+      }
+    } catch (error) {
+      console.error("Error loading car:", error);
       alert("Error loading car");
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchCar();
+  }, [fetchCar]); // Include fetchCar in the dependency array
+
+  useEffect(() => {
+    // Your existing logic that uses 'navigate'
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({
       ...form,
-
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setImage(file);
+    } else {
+      alert("Please upload a valid image file");
+    }
   };
 
   const updateCar = async (e) => {
@@ -127,11 +142,7 @@ function EditCar() {
           style={styles.input}
         />
 
-        <input
-          type="file"
-          style={styles.input}
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <input type="file" style={styles.input} onChange={handleFileChange} />
 
         <button style={styles.button}>Update Car</button>
       </form>

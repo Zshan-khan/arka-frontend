@@ -18,7 +18,7 @@ function AdminDashboard() {
     }
 
     fetchCars();
-  }, []);
+  }, [navigate]);
 
   const fetchCars = () => {
     API.get("/cars").then((res) => setCars(res.data));

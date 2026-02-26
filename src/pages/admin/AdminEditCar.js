@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import AdminLayout from "./AdminLayout";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,29 +18,36 @@ function AdminEditCar() {
     image: null,
   });
 
-  useEffect(() => {
-    fetchCar();
-  }, []);
-
-  const fetchCar = async () => {
+  const fetchCar = useCallback(async () => {
     try {
       const res = await axios.get("arka-backend-28zq.onrender.com/api/cars");
-
-      const car = res.data.find((c) => c.id == id);
-
-      setForm({
-        name: car.name,
-        brand: car.brand,
-        dailyPrice: car.dailyPrice,
-        weeklyPrice: car.weeklyPrice,
-        monthlyPrice: car.monthlyPrice,
-        description: car.description,
-        image: null,
-      });
-    } catch {
+      const car = res.data.find((c) => String(c.id) === String(id));
+      if (car) {
+        setForm({
+          name: car.name,
+          brand: car.brand,
+          dailyPrice: car.dailyPrice,
+          weeklyPrice: car.weeklyPrice,
+          monthlyPrice: car.monthlyPrice,
+          description: car.description,
+          image: null,
+        });
+      } else {
+        alert("Car not found");
+      }
+    } catch (error) {
+      console.error("Error loading car:", error);
       alert("Error loading car");
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchCar();
+  }, [fetchCar]);
+
+  useEffect(() => {
+    // Your existing logic that uses 'navigate'
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({
