@@ -1,19 +1,51 @@
-body {
-  margin: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-family: Arial, sans-serif;
-
-  background: black;
-}
-
-/* Hero zoom animation */
-
-@keyframes zoomHero {
-  0% {
-    transform: scale(1);
+@layer base {
+  html {
+    scroll-behavior: smooth; /* Native smooth scroll as backup */
+    -webkit-tap-highlight-color: transparent;
   }
 
-  100% {
-    transform: scale(1.08);
+  body {
+    @apply bg-black text-white antialiased;
+    font-family: "Inter", sans-serif; /* Cleaner, more premium font */
+  }
+
+  /* Custom gold selection color */
+  ::selection {
+    background-color: #d4af37;
+    color: #000;
+  }
+}
+
+/* Custom scrollbar to match the gold theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+/* Ensure smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fallback for fixed navbar offset */
+section {
+  scroll-margin-top: 100px;
+}
+/* src/index.css */
+@layer base {
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(
+      20px
+    ); /* Specific fix for Safari/MacBook Air */
+    backdrop-filter: blur(20px);
   }
 }
